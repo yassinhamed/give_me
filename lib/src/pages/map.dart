@@ -6,15 +6,22 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../controllers/map_controller.dart';
 import '../elements/CircularLoadingWidget.dart';
+import '../elements/EmptyOrdersWidget.dart';
+import '../elements/PermissionDeniedWidget.dart';
 import '../helpers/helper.dart';
+import '../models/address.dart';
+import '../models/custom_order_model.dart';
 import '../models/order.dart';
 import '../models/route_argument.dart';
+import '../repository/settings_repository.dart' as sett;
+import '../repository/user_repository.dart';
 
 class MapWidget extends StatefulWidget {
   final RouteArgument routeArgument;
   final GlobalKey<ScaffoldState> parentScaffoldKey;
 
-  MapWidget({Key key, this.routeArgument, this.parentScaffoldKey}) : super(key: key);
+  MapWidget({Key key, this.routeArgument, this.parentScaffoldKey})
+      : super(key: key);
 
   @override
   _MapWidgetState createState() => _MapWidgetState();
@@ -29,156 +36,278 @@ class _MapWidgetState extends StateMVC<MapWidget> {
 
   @override
   void initState() {
-    _con.currentOrder = widget.routeArgument?.param as Order;
-    if (_con.currentOrder?.deliveryAddress?.latitude != null) {
-      // user select a market
-      print(_con.currentOrder.deliveryAddress.toMap().toString());
-      _con.getOrderLocation();
-      _con.getDirectionSteps();
-    } else {
-      _con.getCurrentLocation();
+    if(isRegisteredAndLogin) {
+      _con.setMyCurrentLocation();
+      if (widget.routeArgument != null &&
+          widget.routeArgument.param is CustomOrder) {
+        _con.customOrder = widget.routeArgument.param as CustomOrder;
+        _con.getCustomOrderMarketPos();
+        _con.getCustomOrderMarkers();
+        Address _marketAddress = _con.customOrder.marketAddress;
+        Address _myAddress = sett.myAddress.value;
+        Address _customerAddress = _con.customOrder.customerAddress;
+        if (int.parse(_con.customOrder.status.id) < 4) {
+          _con.getCustomOrderDirectionSteps(
+            _myAddress.latitude,
+            _myAddress.longitude,
+            _marketAddress.latitude,
+            _marketAddress.longitude,
+          );
+        } else {
+          _con.getCustomOrderDirectionSteps(
+            _marketAddress.latitude,
+            _marketAddress.longitude,
+            _customerAddress.latitude,
+            _customerAddress.longitude,
+          );
+        }
+      } else {
+        _con.currentOrder = widget.routeArgument?.param as Order;
+        if (_con.currentOrder?.deliveryAddress?.latitude != null) {
+          // user select a market
+          print(_con.currentOrder.deliveryAddress.toMap().toString());
+          _con.getOrderLocation();
+          _con.getDirectionSteps();
+        } else {
+          _con.getCurrentLocation();
+        }
+      }
     }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        centerTitle: true,
-        leading: _con.currentOrder?.deliveryAddress?.latitude == null
-            ? new IconButton(
-                icon: new Icon(Icons.sort, color: Theme.of(context).hintColor),
-                onPressed: () => widget.parentScaffoldKey.currentState.openDrawer(),
-              )
-            : IconButton(
-                icon: new Icon(Icons.arrow_back, color: Theme.of(context).hintColor),
-                onPressed: () => Navigator.of(context).pop(),
+    return !isRegisteredAndLogin?PermissionDeniedWidget(): widget.routeArgument == null
+        ? Scaffold(
+            appBar: AppBar(
+              backgroundColor: Colors.transparent,
+              elevation: 0,
+              centerTitle: true,
+              title: Text(
+                'الموقع',
+                style: Theme.of(context)
+                    .textTheme
+                    .headline6
+                    .merge(TextStyle(letterSpacing: 1.3)),
               ),
-        title: Text(
-          S.of(context).delivery_addresses,
-          style: Theme.of(context).textTheme.headline6.merge(TextStyle(letterSpacing: 1.3)),
-        ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.my_location,
-              color: Theme.of(context).hintColor,
             ),
-            onPressed: () {
-              _con.goCurrentLocation();
-            },
-          ),
-        ],
-      ),
-      body: Stack(
-        fit: StackFit.loose,
-        alignment: AlignmentDirectional.bottomStart,
-        children: <Widget>[
-          _con.cameraPosition == null
-              ? CircularLoadingWidget(height: 0)
-              : GoogleMap(
-                  mapToolbarEnabled: false,
-                  mapType: MapType.normal,
-                  initialCameraPosition: _con.cameraPosition,
-                  markers: Set.from(_con.allMarkers),
-                  onMapCreated: (GoogleMapController controller) {
-                    _con.mapController.complete(controller);
-                  },
-                  onCameraMove: (CameraPosition cameraPosition) {
-                    _con.cameraPosition = cameraPosition;
-                  },
-                  onCameraIdle: () {
-                    _con.getOrdersOfArea();
-                  },
-                  polylines: _con.polylines,
+            body: EmptyOrdersWidget())
+        : widget.routeArgument.param is CustomOrder
+            ? Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  centerTitle: true,
+                  leading: IconButton(
+                    icon: new Icon(Icons.arrow_back,
+                        color: Theme.of(context).hintColor),
+                    onPressed: () => Navigator.of(context).pop(),
+                  ),
+                  title: Text(
+                    _con.customOrder.marketName,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .merge(TextStyle(letterSpacing: 1.3)),
+                  ),
                 ),
-          Container(
-            height: 95,
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-            margin: EdgeInsets.only(bottom: 20),
-            decoration: BoxDecoration(
-              color: Theme.of(context).primaryColor.withOpacity(0.9),
-              boxShadow: [
-                BoxShadow(color: Theme.of(context).focusColor.withOpacity(0.1), blurRadius: 5, offset: Offset(0, 2)),
-              ],
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: <Widget>[
-                _con.currentOrder?.orderStatus?.id == '5'
-                    ? Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Colors.green.withOpacity(0.2)),
-                        child: Icon(
-                          Icons.check,
-                          color: Colors.green,
-                          size: 32,
-                        ),
-                      )
-                    : Container(
-                        width: 60,
-                        height: 60,
-                        decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).hintColor.withOpacity(0.1)),
-                        child: Icon(
-                          Icons.update,
-                          color: Theme.of(context).hintColor.withOpacity(0.8),
-                          size: 30,
-                        ),
+                body: _con.cameraPosition == null
+                    ? CircularLoadingWidget(height: 0)
+                    : GoogleMap(
+                        mapToolbarEnabled: false,
+                        mapType: MapType.normal,
+                        initialCameraPosition: _con.cameraPosition,
+                        markers: Set.from(_con.allMarkers),
+                        onMapCreated: (GoogleMapController controller) {
+                          _con.mapController.complete(controller);
+                        },
+                        onCameraMove: (CameraPosition cameraPosition) {
+                          _con.cameraPosition = cameraPosition;
+                        },
+                        onCameraIdle: () {
+                          //_con.getOrdersOfArea();
+                        },
+                        polylines: _con.polylines,
                       ),
-                SizedBox(width: 15),
-                Flexible(
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Text(
-                              S.of(context).order_id + "#${_con.currentOrder.id}",
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Text(
-                              _con.currentOrder.payment?.method ?? S.of(context).cash_on_delivery,
-                              overflow: TextOverflow.ellipsis,
-                              maxLines: 2,
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                            Text(
-                              DateFormat('yyyy-MM-dd HH:mm').format(_con.currentOrder.dateTime),
-                              style: Theme.of(context).textTheme.caption,
-                            ),
-                          ],
+              )
+            : Scaffold(
+                appBar: AppBar(
+                  backgroundColor: Colors.transparent,
+                  elevation: 0,
+                  centerTitle: true,
+                  leading: _con.currentOrder?.deliveryAddress?.latitude == null
+                      ? new IconButton(
+                          icon: new Icon(Icons.sort,
+                              color: Theme.of(context).hintColor),
+                          onPressed: () => widget.parentScaffoldKey.currentState
+                              .openDrawer(),
+                        )
+                      : IconButton(
+                          icon: new Icon(Icons.arrow_back,
+                              color: Theme.of(context).hintColor),
+                          onPressed: () => Navigator.of(context).pop(),
                         ),
+                  title: Text(
+                    S.of(context).delivery_addresses,
+                    style: Theme.of(context)
+                        .textTheme
+                        .headline6
+                        .merge(TextStyle(letterSpacing: 1.3)),
+                  ),
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        Icons.my_location,
+                        color: Theme.of(context).hintColor,
                       ),
-                      SizedBox(width: 8),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: <Widget>[
-                          Helper.getPrice(Helper.getTotalOrdersPrice(_con.currentOrder), context, style: Theme.of(context).textTheme.headline4),
-                          Text(
-                            S.of(context).items + ':' + _con.currentOrder.productOrders?.length?.toString() ?? 0,
-                            style: Theme.of(context).textTheme.caption,
+                      onPressed: () {
+                        _con.goCurrentLocation();
+                      },
+                    ),
+                  ],
+                ),
+                body: Stack(
+                  fit: StackFit.loose,
+                  alignment: AlignmentDirectional.bottomStart,
+                  children: <Widget>[
+                    _con.cameraPosition == null
+                        ? CircularLoadingWidget(height: 0)
+                        : GoogleMap(
+                            mapToolbarEnabled: false,
+                            mapType: MapType.normal,
+                            initialCameraPosition: _con.cameraPosition,
+                            markers: Set.from(_con.allMarkers),
+                            onMapCreated: (GoogleMapController controller) {
+                              _con.mapController.complete(controller);
+                            },
+                            onCameraMove: (CameraPosition cameraPosition) {
+                              _con.cameraPosition = cameraPosition;
+                            },
+                            onCameraIdle: () {
+                              _con.getOrdersOfArea();
+                            },
+                            polylines: _con.polylines,
                           ),
+                    Container(
+                      height: 95,
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                      margin: EdgeInsets.only(bottom: 20),
+                      decoration: BoxDecoration(
+                        color: Theme.of(context).primaryColor.withOpacity(0.9),
+                        boxShadow: [
+                          BoxShadow(
+                              color:
+                                  Theme.of(context).focusColor.withOpacity(0.1),
+                              blurRadius: 5,
+                              offset: Offset(0, 2)),
                         ],
                       ),
-                    ],
-                  ),
-                )
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          _con.currentOrder?.orderStatus?.id == '5'
+                              ? Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Colors.green.withOpacity(0.2)),
+                                  child: Icon(
+                                    Icons.check,
+                                    color: Colors.green,
+                                    size: 32,
+                                  ),
+                                )
+                              : Container(
+                                  width: 60,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                      color: Theme.of(context)
+                                          .hintColor
+                                          .withOpacity(0.1)),
+                                  child: Icon(
+                                    Icons.update,
+                                    color: Theme.of(context)
+                                        .hintColor
+                                        .withOpacity(0.8),
+                                    size: 30,
+                                  ),
+                                ),
+                          SizedBox(width: 15),
+                          Flexible(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: <Widget>[
+                                      Text(
+                                        S.of(context).order_id +
+                                            "#${_con.currentOrder.id}",
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1,
+                                      ),
+                                      Text(
+                                        _con.currentOrder.payment?.method ??
+                                            S.of(context).cash_on_delivery,
+                                        overflow: TextOverflow.ellipsis,
+                                        maxLines: 2,
+                                        style:
+                                            Theme.of(context).textTheme.caption,
+                                      ),
+                                      Text(
+                                        DateFormat('yyyy-MM-dd HH:mm')
+                                            .format(_con.currentOrder.dateTime),
+                                        style:
+                                            Theme.of(context).textTheme.caption,
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                SizedBox(width: 8),
+                                Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
+                                  children: <Widget>[
+                                    Helper.getPrice(
+                                        Helper.getTotalOrdersPrice(
+                                            _con.currentOrder),
+                                        context,
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headline4),
+                                    Text(
+                                      S.of(context).items +
+                                              ':' +
+                                              _con.currentOrder.productOrders
+                                                  ?.length
+                                                  ?.toString() ??
+                                          0,
+                                      style:
+                                          Theme.of(context).textTheme.caption,
+                                    ),
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              );
   }
 }

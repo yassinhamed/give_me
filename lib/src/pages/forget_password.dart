@@ -76,7 +76,7 @@ class _ForgetPasswordWidgetState extends StateMVC<ForgetPasswordWidget> {
                     children: <Widget>[
                       TextFormField(
                         keyboardType: TextInputType.emailAddress,
-                        onSaved: (input) => _con.user.email = input,
+                        onSaved: (input) => _con.user.email = input.trim(),
                         validator: (input) => !input.contains('@') ? S.of(context).should_be_a_valid_email : null,
                         decoration: InputDecoration(
                           labelText: S.of(context).email,

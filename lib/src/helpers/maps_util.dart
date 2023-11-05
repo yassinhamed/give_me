@@ -17,7 +17,8 @@ class MapsUtil {
   final JsonDecoder _decoder = new JsonDecoder();
 
   Future<dynamic> get(String url) {
-    return http.get(BASE_URL + url).then((http.Response response) {
+    Uri uri = Uri.parse(BASE_URL + url);
+    return http.get(uri).then((http.Response response) {
       String res = response.body;
       int statusCode = response.statusCode;
 //      print("API Response: " + res);

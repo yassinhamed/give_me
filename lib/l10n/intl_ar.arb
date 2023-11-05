@@ -5,7 +5,7 @@
   "submit": "إرسال",
   "verify": "تحقق",
   "select_your_preferred_languages": "حدد لغاتك المفضلة",
-  "order_id": "طلب",
+  "order_id": "رقم الطلب",
   "category": "الفئة",
   "checkout": "الدفع",
   "payment_mode": "طريقة الدفع",
@@ -34,7 +34,7 @@
   "app_settings": "إعدادات التطبيقات",
   "languages": "اللغات",
   "english": "الإنجليزية",
-  "help_support": "ساعد لدعم",
+  "help_support": "المساعدة والدعم",
   "register": "تسجيل",
   "lets_start_with_register": "لنبدأ بالتسجيل!",
   "should_be_more_than_3_letters": "يجب أن يكون أكثر من 3 أحرف",
@@ -58,7 +58,7 @@
   "reset": "إعادة تعيين",
   "close": "قريب",
   "application_preferences": "تفضيلات التطبيق",
-  "help__support": "ساعد لدعم",
+  "help__support": "المساعدة والدعم",
   "light_mode": "وضع الضوء",
   "dark_mode": "الوضع الداكن",
   "log_out": "تسجيل خروج",
@@ -108,7 +108,7 @@
   "hint_full_address": "شارع 12 ، مدينة 21663 ، البلد",
   "full_address": "العنوان الكامل",
   "orders": "الطلبات",
-  "history": "التاريخ",
+  "history": "تاريخ الطلبات",
   "delivered": "تم التوصيل",
   "dismiss": "تجاهل",
   "confirm": "تؤكد",
@@ -145,5 +145,6 @@
   "viewDetails": "تفاصيل",
   "thisProductWasRemovedFromFavorites": "This product was removed from favorites",
   "productRefreshedSuccessfully": "Product refreshed successfully",
-  "deliveryAddressRemovedSuccessfully": "Delivery Address removed successfully"
+  "deliveryAddressRemovedSuccessfully": "Delivery Address removed successfully",
+  "goToHome":"ابدأ الاستكشاف"
 }

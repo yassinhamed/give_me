@@ -24,7 +24,7 @@ class Setting {
   ValueNotifier<Locale> mobileLanguage = new ValueNotifier(Locale('en', ''));
   String appVersion;
   bool enableVersion = true;
-
+  String fcmKey;
   ValueNotifier<Brightness> brightness = new ValueNotifier(Brightness.light);
 
   Setting();
@@ -52,6 +52,7 @@ class Setting {
       payPalEnabled = jsonMap['enable_paypal'] == null || jsonMap['enable_paypal'] == '0' ? false : true;
       stripeEnabled = jsonMap['enable_stripe'] == null || jsonMap['enable_stripe'] == '0' ? false : true;
       razorPayEnabled = jsonMap['enable_razorpay'] == null || jsonMap['enable_razorpay'] == '0' ? false : true;
+      fcmKey = jsonMap['fcm_key'] ?? null;
     } catch (e) {
       print(CustomTrace(StackTrace.current, message: e));
     }

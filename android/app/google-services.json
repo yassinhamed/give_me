@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "887030174868-j7gp6u4ekidgt3aaf9tm1jhepqnmecrj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.giveme.customer",
+            "certificate_hash": "53a60fd3f6c586e4d118a2d62678bc1a3ba7f484"
+          }
+        },
+        {
           "client_id": "887030174868-7gc1suat2av9rrg7h68d8gt7057ovage.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -52,11 +60,56 @@
       },
       "oauth_client": [
         {
-          "client_id": "887030174868-9jhu1smeqgijbkc55e8cnik1p71fiihm.apps.googleusercontent.com",
+          "client_id": "887030174868-21m9evuuf8kb76pe6cba4iftbp398hsi.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.giveme.delivery",
             "certificate_hash": "003b5faa2bc680df2794ee3cbabfe25f75b0699b"
+          }
+        },
+        {
+          "client_id": "887030174868-5bt8j8i1gs09raq4egpcuhs60vsv7dve.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.giveme.delivery",
+            "certificate_hash": "10ec3132a785dd687608ea45bc10c6b12b287e09"
+          }
+        },
+        {
+          "client_id": "887030174868-7gc1suat2av9rrg7h68d8gt7057ovage.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAmH5IWjiCckFkaRw0PxgGjt7si-CZI9ec"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "887030174868-7gc1suat2av9rrg7h68d8gt7057ovage.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:887030174868:android:5463c9bd7540afdb32d081",
+        "android_client_info": {
+          "package_name": "com.giveme.vendor"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "887030174868-m440b4e4de5n4p0ag50qad2plpl0t4kn.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.giveme.vendor",
+            "certificate_hash": "cfd8aa78e483f280efc404aea8f289ddb057671d"
           }
         },
         {

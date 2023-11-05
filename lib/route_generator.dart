@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:markets_deliveryboy/src/elements/custom_order_elements/offer_page.dart';
+import 'package:markets_deliveryboy/src/pages/chat.dart';
+import 'package:markets_deliveryboy/src/pages/custom_order_page.dart';
+import 'package:markets_deliveryboy/src/pages/gallery.dart';
 
 import 'src/models/route_argument.dart';
 import 'src/pages/forget_password.dart';
@@ -8,10 +12,12 @@ import 'src/pages/login.dart';
 import 'src/pages/notifications.dart';
 import 'src/pages/order.dart';
 import 'src/pages/pages.dart';
+import 'src/pages/profile.dart';
 import 'src/pages/settings.dart';
 import 'src/pages/signup.dart';
 import 'src/pages/splash_screen.dart';
-
+import 'src/pages/verificationInfo.dart';
+import 'src/pages/policies.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings settings) {
     // Getting arguments passed in while calling Navigator.pushNamed
@@ -19,6 +25,10 @@ class RouteGenerator {
     switch (settings.name) {
       case '/Splash':
         return MaterialPageRoute(builder: (_) => SplashScreen());
+      case "/Policies":
+        return MaterialPageRoute(builder: (_)=>Policies());
+      case '/VerificationInfo':
+        return MaterialPageRoute(builder: (_) => VerificationInfo("dfd","kdfd","dsf","kdlf"));
       case '/SignUp':
         return MaterialPageRoute(builder: (_) => SignUpWidget());
       case '/MobileVerification':
@@ -30,7 +40,7 @@ class RouteGenerator {
       case '/ForgetPassword':
         return MaterialPageRoute(builder: (_) => ForgetPasswordWidget());
       case '/Pages':
-        return MaterialPageRoute(builder: (_) => PagesTestWidget(currentTab: args));
+        return MaterialPageRoute(builder: (_) => PagesTestWidget(currentTab: args ));
       case '/OrderDetails':
         return MaterialPageRoute(builder: (_) => OrderWidget(routeArgument: args as RouteArgument));
       case '/Notifications':
@@ -41,6 +51,16 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => HelpWidget());
       case '/Settings':
         return MaterialPageRoute(builder: (_) => SettingsWidget());
+      case '/CustomOrderPage':
+        return MaterialPageRoute(builder: (_) => CustomOrderPage(order: args,));
+      case '/CustomOfferPage':
+        return MaterialPageRoute(builder: (_) => OfferPage(order: args,));
+      case '/Chat':
+        return MaterialPageRoute(builder: (_) => ChatWidget(routeArgument: args as RouteArgument));
+      case '/Gallery':
+        return MaterialPageRoute(builder: (_) => GalleryWidget(routeArgument: args as RouteArgument));
+      case '/Profile':
+        return MaterialPageRoute(builder: (_) => ProfileWidget());
       default:
         // If there is no such named route in the switch statement, e.g. /third
         return MaterialPageRoute(builder: (_) => Scaffold(body: SizedBox(height: 0)));

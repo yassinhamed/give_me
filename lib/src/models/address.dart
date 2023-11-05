@@ -7,15 +7,24 @@ class Address {
   String description;
   String address;
   double latitude;
+
+  Address(
+      {this.id,
+      this.description,
+      this.address,
+      this.latitude,
+      this.longitude,
+      this.isDefault,
+      this.userId});
+
   double longitude;
   bool isDefault;
   String userId;
 
-  Address();
 
   Address.fromJSON(Map<String, dynamic> jsonMap) {
     try {
-      id = jsonMap['id'].toString();
+      id = jsonMap['id']?.toString()??DateTime.now().toString();
       description = jsonMap['description'] != null ? jsonMap['description'].toString() : null;
       address = jsonMap['address'] != null ? jsonMap['address'] : null;
       latitude = jsonMap['latitude'] != null ? jsonMap['latitude'] : null;

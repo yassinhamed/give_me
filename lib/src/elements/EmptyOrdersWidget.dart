@@ -7,9 +7,10 @@ import '../helpers/app_config.dart' as config;
 
 class EmptyOrdersWidget extends StatefulWidget {
   EmptyOrdersWidget({
-    Key key,
+    Key key,this.ratio = 1,this.alignment = Alignment.center
   }) : super(key: key);
-
+final double ratio;
+final Alignment alignment;
   @override
   _EmptyOrdersWidgetState createState() => _EmptyOrdersWidgetState();
 }
@@ -34,12 +35,17 @@ class _EmptyOrdersWidgetState extends State<EmptyOrdersWidget> {
     return Column(
       children: <Widget>[
         loading
-            ? SizedBox(
-                height: 3,
-                child: LinearProgressIndicator(
-                  backgroundColor: Theme.of(context).accentColor.withOpacity(0.2),
+            ? Align(
+          alignment: widget.alignment,
+              child: SizedBox(
+                  height: 3,
+                  width: MediaQuery.of(context).size.width*widget.ratio,
+                  child: LinearProgressIndicator(
+                    backgroundColor: Theme.of(context).accentColor.withOpacity(0.2),
+                    color: Theme.of(context).accentColor  ,
+                  ),
                 ),
-              )
+            )
             : SizedBox(),
         Container(
           alignment: AlignmentDirectional.center,

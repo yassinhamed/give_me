@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:markets_deliveryboy/src/elements/custom_order_elements/MyOffersWidget.dart';
 import '../../generated/l10n.dart';
 import '../elements/DrawerWidget.dart';
 import '../models/route_argument.dart';
 import '../pages/map.dart';
 import '../pages/orders.dart';
 import '../pages/orders_history.dart';
-import '../pages/profile.dart';
+import 'messages.dart';
 
 // ignore: must_be_immutable
 class PagesTestWidget extends StatefulWidget {
@@ -52,19 +52,21 @@ class _PagesTestWidgetState extends State<PagesTestWidget> {
 
   void _selectTab(int tabItem) {
     setState(() {
-      widget.currentTab = tabItem == 3 ? 1 : tabItem;
       switch (tabItem) {
         case 0:
-          widget.currentPage = ProfileWidget(parentScaffoldKey: widget.scaffoldKey);
+          widget.currentPage = MyOffersWidget(parentScaffoldKey: widget.scaffoldKey,);
           break;
         case 1:
-          widget.currentPage = OrdersWidget(parentScaffoldKey: widget.scaffoldKey);
-          break;
-        case 2:
           widget.currentPage = OrdersHistoryWidget(parentScaffoldKey: widget.scaffoldKey);
           break;
+        case 2:
+          widget.currentPage = OrdersWidget(parentScaffoldKey: widget.scaffoldKey);
+          break;
         case 3:
-          widget.currentPage = MapWidget(parentScaffoldKey: widget.scaffoldKey, routeArgument: widget.routeArgument);
+          widget.currentPage = MessagesWidget(parentScaffoldKey: widget.scaffoldKey,);
+          break;
+        case 4:
+        widget.currentPage = MapWidget(parentScaffoldKey: widget.scaffoldKey, routeArgument: widget.routeArgument);
           break;
       }
     });
@@ -90,13 +92,17 @@ class _PagesTestWidgetState extends State<PagesTestWidget> {
           unselectedItemColor: Theme.of(context).focusColor.withOpacity(1),
           currentIndex: widget.currentTab,
           onTap: (int i) {
-            print(i);
+            widget.currentTab = i;
             this._selectTab(i);
           },
           // this will be set when a new tab is tapped
           items: [
             BottomNavigationBarItem(
-              icon: Icon(Icons.person_outline),
+              icon: new Icon(Icons.person),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(Icons.history),
               label: '',
             ),
             BottomNavigationBarItem(
@@ -118,9 +124,14 @@ class _PagesTestWidgetState extends State<PagesTestWidget> {
                   child: new Icon(Icons.home, color: Theme.of(context).primaryColor),
                 )),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.history),
+              icon: new Icon(widget.currentTab == 3 ? Icons.chat : Icons.chat_outlined),
               label: '',
             ),
+            BottomNavigationBarItem(
+              icon: Icon(widget.currentTab==4? Icons.location_on : Icons.location_on_outlined),
+              label: '',
+            ),
+
           ],
         ),
       ),

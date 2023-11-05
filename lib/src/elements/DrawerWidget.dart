@@ -1,9 +1,12 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:mvc_pattern/mvc_pattern.dart';
+import 'package:store_redirect/store_redirect.dart';
 
 import '../../generated/l10n.dart';
 import '../controllers/profile_controller.dart';
 import '../elements/CircularLoadingWidget.dart';
+import '../helpers/helper.dart';
 import '../repository/settings_repository.dart';
 import '../repository/user_repository.dart';
 
@@ -33,30 +36,61 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
               children: <Widget>[
                 GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/Pages', arguments: 0);
+                    Navigator.of(context).pushNamed('/Profile');
                   },
                   child: UserAccountsDrawerHeader(
                     decoration: BoxDecoration(
                       color: Theme.of(context).hintColor.withOpacity(0.1),
-//              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(35)),
                     ),
-                    accountName: Text(
-                      currentUser.value.name,
-                      style: Theme.of(context).textTheme.headline6,
+                    accountName: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Expanded(
+                            child: SizedBox(
+                          width: 10,
+                        )),
+                        Text(currentUser.value.name,
+                            style: Theme.of(context).textTheme.headline6),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.min,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: Helper.getStarsList(
+                              currentUser.value.rate ?? 0,
+                              size: 16),
+                        ),
+                      ],
                     ),
                     accountEmail: Text(
                       currentUser.value.email,
                       style: Theme.of(context).textTheme.caption,
                     ),
-                    currentAccountPicture: CircleAvatar(
-                      backgroundColor: Theme.of(context).accentColor,
-                      backgroundImage: NetworkImage(currentUser.value.image.thumb),
+                    currentAccountPicture: ClipRRect(
+                      borderRadius: BorderRadius.all(Radius.circular(80)),
+                      child: CachedNetworkImage(
+                        height: 80,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        imageUrl: currentUser.value.image.url,
+                        placeholder: (context, url) => Image.asset(
+                          'assets/img/loading.gif',
+                          fit: BoxFit.cover,
+                          width: double.infinity,
+                          height: 80,
+                        ),
+                        errorWidget: (context, url, error) =>
+                            Icon(Icons.error_outline),
+                      ),
                     ),
                   ),
                 ),
                 ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/Pages', arguments: 1);
+                    Navigator.of(context).pushNamed('/Pages', arguments: 2);
                   },
                   leading: Icon(
                     Icons.shopping_basket,
@@ -82,7 +116,7 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                 ),
                 ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/Pages', arguments: 2);
+                    Navigator.of(context).pushNamed('/Pages', arguments: 1);
                   },
                   leading: Icon(
                     Icons.history,
@@ -132,19 +166,6 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                 ),
                 ListTile(
                   onTap: () {
-                    Navigator.of(context).pushNamed('/Languages');
-                  },
-                  leading: Icon(
-                    Icons.translate,
-                    color: Theme.of(context).focusColor.withOpacity(1),
-                  ),
-                  title: Text(
-                    S.of(context).languages,
-                    style: Theme.of(context).textTheme.subtitle1,
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
                     if (Theme.of(context).brightness == Brightness.dark) {
                       setBrightness(Brightness.light);
                       setting.value.brightness.value = Brightness.light;
@@ -159,14 +180,41 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                     color: Theme.of(context).focusColor.withOpacity(1),
                   ),
                   title: Text(
-                    Theme.of(context).brightness == Brightness.dark ? S.of(context).light_mode : S.of(context).dark_mode,
+                    Theme.of(context).brightness == Brightness.dark
+                        ? S.of(context).light_mode
+                        : S.of(context).dark_mode,
+                    style: Theme.of(context).textTheme.subtitle1,
+                  ),
+                ),
+                ListTile(
+                  onTap: (){
+                    Navigator.of(context).pop();
+                    Navigator.pushNamed(context, "/Policies");
+                  },
+                  leading: Icon(Icons.security),
+                  title: Text("سياسة الاستخدام", style: Theme.of(context).textTheme.subtitle1,),
+                ),
+                ListTile(
+                  onTap: () {
+                    StoreRedirect.redirect(
+                      androidAppId: "com.giveme.delivery",
+                      iOSAppId: "",
+                    );
+                  },
+                  leading: Icon(
+                    Icons.star_rate,
+                    color: Theme.of(context).focusColor.withOpacity(1),
+                  ),
+                  title: Text(
+                    'قيم التطبيق',
                     style: Theme.of(context).textTheme.subtitle1,
                   ),
                 ),
                 ListTile(
                   onTap: () {
                     logout().then((value) {
-                      Navigator.of(context).pushNamedAndRemoveUntil('/Login', (Route<dynamic> route) => false);
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          '/Login', (Route<dynamic> route) => false);
                     });
                   },
                   leading: Icon(
@@ -182,7 +230,9 @@ class _DrawerWidgetState extends StateMVC<DrawerWidget> {
                     ? ListTile(
                         dense: true,
                         title: Text(
-                          S.of(context).version + " " + setting.value.appVersion,
+                          S.of(context).version +
+                              " " +
+                              setting.value.appVersion,
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                         trailing: Icon(

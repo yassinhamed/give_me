@@ -6,6 +6,8 @@ import '../controllers/notification_controller.dart';
 import '../elements/DrawerWidget.dart';
 import '../elements/EmptyNotificationsWidget.dart';
 import '../elements/NotificationItemWidget.dart';
+import '../elements/PermissionDeniedWidget.dart';
+import '../repository/user_repository.dart';
 
 class NotificationsWidget extends StatefulWidget {
   final GlobalKey<ScaffoldState> parentScaffoldKey;
@@ -25,6 +27,8 @@ class _NotificationsWidgetState extends StateMVC<NotificationsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    print("----------------- current user:\n${currentUser.value.toMap()}");
+
     return Scaffold(
       key: _con.scaffoldKey,
       drawer: DrawerWidget(),
@@ -73,7 +77,8 @@ class _NotificationsWidgetState extends StateMVC<NotificationsWidget> {
           )
         ],
       ),
-      body: RefreshIndicator(
+      body: !isRegisteredAndLogin
+          ? PermissionDeniedWidget():RefreshIndicator(
         onRefresh: _con.refreshNotifications,
         child: _con.notifications.isEmpty
             ? EmptyNotificationsWidget()

@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
+import '../helpers/helper.dart';
 import '../models/user.dart';
+import '../repository/user_repository.dart';
 
 class ProfileAvatarWidget extends StatelessWidget {
   final User user;
@@ -27,24 +29,13 @@ class ProfileAvatarWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-//              SizedBox(
-//                width: 50,
-//                height: 50,
-//                child: MaterialButton(elevation:0,
-//                  padding: EdgeInsets.all(0),
-//                  onPressed: () {},
-//                  child: Icon(Icons.add, color: Theme.of(context).primaryColor),
-//                  color: Theme.of(context).accentColor,
-//                  shape: StadiumBorder(),
-//                ),
-//              ),
                 ClipRRect(
                   borderRadius: BorderRadius.all(Radius.circular(300)),
                   child: CachedNetworkImage(
                     height: 135,
                     width: 135,
                     fit: BoxFit.cover,
-                    imageUrl: user.image.url,
+                    imageUrl: user.image?.url??"",
                     placeholder: (context, url) => Image.asset(
                       'assets/img/loading.gif',
                       fit: BoxFit.cover,
@@ -54,26 +45,29 @@ class ProfileAvatarWidget extends StatelessWidget {
                     errorWidget: (context, url, error) => Icon(Icons.error),
                   ),
                 ),
-//              SizedBox(
-//                width: 50,
-//                height: 50,
-//                child: MaterialButton(elevation:0,
-//                  padding: EdgeInsets.all(0),
-//                  onPressed: () {},
-//                  child: Icon(Icons.chat, color: Theme.of(context).primaryColor),
-//                  color: Theme.of(context).accentColor,
-//                  shape: StadiumBorder(),
-//                ),
-//              ),
               ],
             ),
           ),
           Text(
-            user.name,
+            user.name??'user name',
             style: Theme.of(context).textTheme.headline5.merge(TextStyle(color: Theme.of(context).primaryColor)),
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children:
+              Helper.getStarsList(currentUser.value.rate??0)
+
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(user.balance?.toStringAsFixed(2).toString()??"0.0",style: Theme.of(context).textTheme.headline2.copyWith(color: Colors.green),),
+              Text('جنيه',style: Theme.of(context).textTheme.headline5.copyWith(color: Colors.green,fontWeight: FontWeight.w500),)
+
+            ],
+          ),
           Text(
-            user.address,
+            user.address??'user address',
             style: Theme.of(context).textTheme.caption.merge(TextStyle(color: Theme.of(context).primaryColor)),
           ),
         ],

@@ -19,8 +19,21 @@ class Market {
   bool availableForDelivery;
   double deliveryRange;
   double distance;
-
-  Market();
+ String icon;
+ String category;
+  Market(
+      {this.id,
+        this.name,
+        this.category,
+        this.rate,
+        this.icon,
+        this.image,
+        this.latitude,
+        this.longitude,
+        this.address,
+        this.closed,
+        this.distance,}
+      );
 
   Market.fromJSON(Map<String, dynamic> jsonMap) {
     try {
@@ -65,6 +78,7 @@ class Market {
     }
   }
 
+
   Map<String, dynamic> toMap() {
     return {
       'id': id,
@@ -73,6 +87,37 @@ class Market {
       'longitude': longitude,
       'delivery_fee': deliveryFee,
       'distance': distance,
+    };
+  }
+  // About custom order
+  factory Market.fromSharedPrefsJson(Map map){
+    return Market(
+      id: map['id'],
+      name: map['name'],
+      rate: map['rate'],
+      icon: map['icon'],
+      image: Media(url:map['image']['url']),
+      latitude: map['latitude'],
+      longitude:map['longitude'],
+      address:map['address'],
+      closed: map['closed']??false,
+      distance:double.parse((map['distance'] as double).toStringAsFixed(2)),
+      category: map['category'],
+    );
+  }
+  Map<String,dynamic> toSharedPrefsMap(){
+    return{
+      'id': id,
+      'name': name,
+      'rate': rate,
+      'icon': icon,
+      'image': image.toMap(),
+      'latitude': latitude,
+      'longitude':longitude,
+      'address':address,
+      'closed': closed??false,
+      'distance':distance,
+      'category':category,
     };
   }
 }

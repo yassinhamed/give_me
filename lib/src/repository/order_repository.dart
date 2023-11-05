@@ -19,9 +19,12 @@ Future<Stream<Order>> getOrders() async {
   User _user = userRepo.currentUser.value;
 
   _queryParams['api_token'] = _user.apiToken;
-  _queryParams['with'] = 'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
-  _queryParams['search'] = 'driver.id:${_user.id};order_status_id:$orderStatusId;delivery_address_id:null';
-  _queryParams['searchFields'] = 'driver.id:=;order_status_id:<>;delivery_address_id:<>';
+  _queryParams['with'] =
+      'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
+  _queryParams['search'] =
+      'driver.id:${_user.id};order_status_id:$orderStatusId;delivery_address_id:null';
+  _queryParams['searchFields'] =
+      'driver.id:=;order_status_id:<>;delivery_address_id:<>';
   _queryParams['searchJoin'] = 'and';
   _queryParams['orderBy'] = 'id';
   _queryParams['sortedBy'] = 'asc';
@@ -29,23 +32,42 @@ Future<Stream<Order>> getOrders() async {
   try {
     final client = new http.Client();
     final streamedRest = await client.send(http.Request('get', uri));
-    return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getData(data)).expand((data) => (data as List)).map((data) {
-      return Order.fromJSON(data);
-    });
+
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) {
+          print("************ get original order data: $data");
+          return Helper.getData(data as Map<String, dynamic>);
+        })
+        .expand((data) => (data as List))
+        .map((data) {
+          print("************ get order data: $data");
+          return Order.fromJSON(data);
+        });
   } catch (e) {
+    print("************ error when get orders");
     print(CustomTrace(StackTrace.current, message: uri.toString()).toString());
     return new Stream.value(new Order.fromJSON({}));
   }
 }
 
-Future<Stream<Order>> getNearOrders(Address myAddress, Address areaAddress) async {
+Future<Stream<Order>> getNearOrders(
+    Address myAddress, Address areaAddress) async {
+
+
+
+
+
+
   Uri uri = Helper.getUri('api/orders');
   Map<String, dynamic> _queryParams = {};
   User _user = userRepo.currentUser.value;
 
   _queryParams['api_token'] = _user.apiToken;
   _queryParams['limit'] = '6';
-  _queryParams['with'] = 'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
+  _queryParams['with'] =
+      'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
   _queryParams['search'] = 'driver.id:${_user.id};delivery_address_id:null';
   _queryParams['searchFields'] = 'driver.id:=;delivery_address_id:<>';
   _queryParams['searchJoin'] = 'and';
@@ -57,7 +79,12 @@ Future<Stream<Order>> getNearOrders(Address myAddress, Address areaAddress) asyn
   try {
     final client = new http.Client();
     final streamedRest = await client.send(http.Request('get', uri));
-    return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getData(data)).expand((data) => (data as List)).map((data) {
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) => Helper.getData(data))
+        .expand((data) => (data as List))
+        .map((data) {
       return Order.fromJSON(data);
     });
   } catch (e) {
@@ -73,9 +100,12 @@ Future<Stream<Order>> getOrdersHistory() async {
   User _user = userRepo.currentUser.value;
 
   _queryParams['api_token'] = _user.apiToken;
-  _queryParams['with'] = 'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
-  _queryParams['search'] = 'driver.id:${_user.id};order_status_id:$orderStatusId;delivery_address_id:null';
-  _queryParams['searchFields'] = 'driver.id:=;order_status_id:=;delivery_address_id:<>';
+  _queryParams['with'] =
+      'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
+  _queryParams['search'] =
+      'driver.id:${_user.id};order_status_id:$orderStatusId;delivery_address_id:null';
+  _queryParams['searchFields'] =
+      'driver.id:=;order_status_id:=;delivery_address_id:<>';
   _queryParams['searchJoin'] = 'and';
   _queryParams['orderBy'] = 'id';
   _queryParams['sortedBy'] = 'desc';
@@ -85,7 +115,12 @@ Future<Stream<Order>> getOrdersHistory() async {
   try {
     final client = new http.Client();
     final streamedRest = await client.send(http.Request('get', uri));
-    return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getData(data)).expand((data) => (data as List)).map((data) {
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) => Helper.getData(data))
+        .expand((data) => (data as List))
+        .map((data) {
       return Order.fromJSON(data);
     });
   } catch (e) {
@@ -105,7 +140,11 @@ Future<Stream<Order>> getOrder(orderId) async {
   final client = new http.Client();
   final streamedRest = await client.send(http.Request('get', Uri.parse(url)));
 
-  return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getObjectData(data)).map((data) {
+  return streamedRest.stream
+      .transform(utf8.decoder)
+      .transform(json.decoder)
+      .map((data) => Helper.getObjectData(data))
+      .map((data) {
     return Order.fromJSON(data);
   });
 }
@@ -117,7 +156,8 @@ Future<Stream<Order>> getRecentOrders() async {
 
   _queryParams['api_token'] = _user.apiToken;
   _queryParams['limit'] = '4';
-  _queryParams['with'] = 'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
+  _queryParams['with'] =
+      'driver;productOrders;productOrders.product;productOrders.options;orderStatus;deliveryAddress;payment';
   _queryParams['search'] = 'driver.id:${_user.id};delivery_address_id:null';
   _queryParams['searchFields'] = 'driver.id:=;delivery_address_id:<>';
   _queryParams['searchJoin'] = 'and';
@@ -129,7 +169,12 @@ Future<Stream<Order>> getRecentOrders() async {
   try {
     final client = new http.Client();
     final streamedRest = await client.send(http.Request('get', uri));
-    return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getData(data)).expand((data) => (data as List)).map((data) {
+    return streamedRest.stream
+        .transform(utf8.decoder)
+        .transform(json.decoder)
+        .map((data) => Helper.getData(data))
+        .expand((data) => (data as List))
+        .map((data) {
       return Order.fromJSON(data);
     });
   } catch (e) {
@@ -144,12 +189,18 @@ Future<Stream<OrderStatus>> getOrderStatus() async {
     return new Stream.value(new OrderStatus());
   }
   final String _apiToken = 'api_token=${_user.apiToken}';
-  final String url = '${GlobalConfiguration().getValue('api_base_url')}order_statuses?$_apiToken';
+  final String url =
+      '${GlobalConfiguration().getValue('api_base_url')}order_statuses?$_apiToken';
 
   final client = new http.Client();
   final streamedRest = await client.send(http.Request('get', Uri.parse(url)));
 
-  return streamedRest.stream.transform(utf8.decoder).transform(json.decoder).map((data) => Helper.getData(data)).expand((data) => (data as List)).map((data) {
+  return streamedRest.stream
+      .transform(utf8.decoder)
+      .transform(json.decoder)
+      .map((data) => Helper.getData(data))
+      .expand((data) => (data as List))
+      .map((data) {
     return OrderStatus.fromJSON(data);
   });
 }
@@ -160,10 +211,12 @@ Future<Order> deliveredOrder(Order order) async {
     return new Order();
   }
   final String _apiToken = 'api_token=${_user.apiToken}';
-  final String url = '${GlobalConfiguration().getValue('api_base_url')}orders/${order.id}?$_apiToken';
+  final String url =
+      '${GlobalConfiguration().getValue('api_base_url')}orders/${order.id}?$_apiToken';
+  Uri uri = Uri.parse(url);
   final client = new http.Client();
   final response = await client.put(
-    url,
+    uri,
     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
     body: json.encode(order.deliveredMap()),
   );

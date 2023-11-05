@@ -48,7 +48,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           decoration: getInputDecoration(hintText: S.of(context).john_doe, labelText: S.of(context).full_name),
                           initialValue: widget.user.name,
                           validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_full_name : null,
-                          onSaved: (input) => widget.user.name = input,
+                          onSaved: (input) => widget.user.name = input.trim(),
                         ),
                         new TextFormField(
                           style: TextStyle(color: Theme.of(context).hintColor),
@@ -56,15 +56,15 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           decoration: getInputDecoration(hintText: 'johndo@gmail.com', labelText: S.of(context).email_address),
                           initialValue: widget.user.email,
                           validator: (input) => !input.contains('@') ? S.of(context).not_a_valid_email : null,
-                          onSaved: (input) => widget.user.email = input,
+                          onSaved: (input) => widget.user.email = input.trim(),
                         ),
                         new TextFormField(
                           style: TextStyle(color: Theme.of(context).hintColor),
                           keyboardType: TextInputType.text,
-                          decoration: getInputDecoration(hintText: '+136 269 9765', labelText: S.of(context).phone),
+                          decoration: getInputDecoration(hintText: '+249 55 335 8565', labelText: S.of(context).phone),
                           initialValue: widget.user.phone,
-                          validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_phone : null,
-                          onSaved: (input) => widget.user.phone = input,
+                          validator: (input) =>  input.trim().length < 12 || (!input.startsWith('00') && !input.startsWith('+'))? "أدخل الرقم كاملا مبدوءا ب + أو 00" : null,
+                          onSaved: (input) => widget.user.phone = getPhoneNumber(input),
                         ),
                         new TextFormField(
                           style: TextStyle(color: Theme.of(context).hintColor),
@@ -72,7 +72,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           decoration: getInputDecoration(hintText: S.of(context).your_address, labelText: S.of(context).address),
                           initialValue: widget.user.address,
                           validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_address : null,
-                          onSaved: (input) => widget.user.address = input,
+                          onSaved: (input) => widget.user.address = input.trim(),
                         ),
                         new TextFormField(
                           style: TextStyle(color: Theme.of(context).hintColor),
@@ -80,7 +80,7 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
                           decoration: getInputDecoration(hintText: S.of(context).your_biography, labelText: S.of(context).about),
                           initialValue: widget.user.bio,
                           validator: (input) => input.trim().length < 3 ? S.of(context).not_a_valid_biography : null,
-                          onSaved: (input) => widget.user.bio = input,
+                          onSaved: (input) => widget.user.bio = input.trim(),
                         ),
                       ],
                     ),
@@ -138,5 +138,11 @@ class _ProfileSettingsDialogState extends State<ProfileSettingsDialog> {
       widget.onChanged();
       Navigator.pop(context);
     }
+  }
+  getPhoneNumber(String oldNum){
+    if(oldNum.startsWith("00")){
+      return oldNum.replaceFirst('00', '+');
+    }
+    return oldNum;
   }
 }

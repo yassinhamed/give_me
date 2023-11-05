@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="NONE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="059dfd3b-d26c-4e17-af44-5dc71f7059bd" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../assets/img/instagram.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assets/img/sar.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../assets/lottie_files/delivery-guy.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/controllers/chat_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/controllers/gallery_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/controllers/verification_info_controller.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/ChatMessageListItemWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/CustomTextFeildWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/DoneOrderWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/EmptyMessagesWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/MessageItemWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/MobileVerificationBottomSheetWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/PaymentSettingsDialog.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/PermissionDeniedWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/custom_order_elements/CustomOfferItemWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/custom_order_elements/CustomOrderInfoWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/custom_order_elements/CustomOrderItemWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/custom_order_elements/CustomOrderSingleInfoWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/custom_order_elements/MyOffersWidget.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/custom_order_elements/offer_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/elements/upload_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/models/chat.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/models/conversation.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/models/custom_order_model.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/models/delivery_offer.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/models/delivery_verification.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/models/done_order.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/pages/chat.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/pages/custom_order_page.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/pages/gallery.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/pages/messages.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/pages/policies.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/pages/verificationInfo.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/repository/chat_repository.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/src/repository/upload_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/google-services.json" beforeDir="false" afterPath="$PROJECT_DIR$/app/google-services.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/debug/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/debug/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/io/flutter/plugins/GeneratedPluginRegistrant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_notification.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-hdpi/ic_notification.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_notification.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-mdpi/ic_notification.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_notification.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xhdpi/ic_notification.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_notification.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxhdpi/ic_notification.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_launcher.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_notification.png" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/mipmap-xxxhdpi/ic_notification.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" afterPath="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/settings.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/settings.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Flutter/Generated.xcconfig" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Flutter/Generated.xcconfig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Flutter/flutter_export_environment.sh" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Flutter/flutter_export_environment.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../ios/Runner/GeneratedPluginRegistrant.m" beforeDir="false" afterPath="$PROJECT_DIR$/../ios/Runner/GeneratedPluginRegistrant.m" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/generated/intl/messages_ar.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/generated/intl/messages_ar.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/l10n/intl_ar.arb" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/l10n/intl_ar.arb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/main.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/route_generator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/route_generator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/controllers/map_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/controllers/map_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/controllers/notification_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/controllers/notification_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/controllers/order_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/controllers/order_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/controllers/profile_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/controllers/profile_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/controllers/search_controller.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/controllers/splash_screen_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/controllers/splash_screen_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/controllers/user_controller.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/controllers/user_controller.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/elements/DrawerWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/elements/DrawerWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/elements/EmptyNotificationsWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/elements/EmptyNotificationsWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/elements/EmptyOrdersWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/elements/EmptyOrdersWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/elements/ProfileAvatarWidget.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/elements/ProfileAvatarWidget.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/elements/ProfileSettingsDialog.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/elements/ProfileSettingsDialog.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/helpers/helper.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/helpers/helper.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/helpers/maps_util.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/helpers/maps_util.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/models/address.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/models/address.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/models/market.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/models/market.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/models/media.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/models/media.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/models/order_status.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/models/order_status.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/models/setting.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/models/setting.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/models/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/models/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/forget_password.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/forget_password.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/login.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/login.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/map.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/notifications.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/notifications.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/order.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/order.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/orders.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/orders.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/orders_history.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/orders_history.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/pages.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/pages.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/profile.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/profile.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/settings.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/settings.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/signup.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/signup.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/pages/splash_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/pages/splash_screen.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/repository/notification_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/repository/notification_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/repository/order_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/repository/order_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/repository/product_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/repository/product_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/repository/settings_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/repository/settings_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../lib/src/repository/user_repository.dart" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/src/repository/user_repository.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.lock" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/../pubspec.yaml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="2Xasx530Wywb9pXTnr37dzV3O5i" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "android.gradle.sync.needed": "true",
+    "cidr.known.project.marker": "true",
+    "dart.analysis.tool.window.visible": "false",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0",
+    "show.migrate.to.gradle.popup": "false"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="059dfd3b-d26c-4e17-af44-5dc71f7059bd" name="Changes" comment="" />
+      <created>1698878771362</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1698878771362</updated>
+    </task>
+    <servers />
+  </component>
+</project>

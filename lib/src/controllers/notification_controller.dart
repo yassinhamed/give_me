@@ -4,6 +4,7 @@ import 'package:mvc_pattern/mvc_pattern.dart';
 import '../../generated/l10n.dart';
 import '../models/notification.dart' as model;
 import '../repository/notification_repository.dart';
+import '../repository/user_repository.dart';
 
 class NotificationController extends ControllerMVC {
   List<model.Notification> notifications = <model.Notification>[];
@@ -12,7 +13,10 @@ class NotificationController extends ControllerMVC {
 
   NotificationController() {
     this.scaffoldKey = new GlobalKey<ScaffoldState>();
-    listenForNotifications();
+    if(isRegisteredAndLogin){
+      listenForNotifications();
+    }
+
   }
 
   void listenForNotifications({String message}) async {

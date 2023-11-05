@@ -85,8 +85,9 @@ Future<Favorite> addFavorite(Favorite favorite) async {
   favorite.userId = _user.id;
   final String url = '${GlobalConfiguration().getValue('api_base_url')}favorites?$_apiToken';
   final client = new http.Client();
+  Uri uri = Uri.parse(url);
   final response = await client.post(
-    url,
+    uri,
     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
     body: json.encode(favorite.toMap()),
   );
@@ -101,8 +102,9 @@ Future<Favorite> removeFavorite(Favorite favorite) async {
   final String _apiToken = 'api_token=${_user.apiToken}';
   final String url = '${GlobalConfiguration().getValue('api_base_url')}favorites/${favorite.id}?$_apiToken';
   final client = new http.Client();
+  Uri uri = Uri.parse(url);
   final response = await client.delete(
-    url,
+    uri,
     headers: {HttpHeaders.contentTypeHeader: 'application/json'},
   );
   return Favorite.fromJSON(json.decode(response.body)['data']);
